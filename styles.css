@@ -486,6 +486,22 @@ main {
     text-align: center;
 }
 
+.settings-section {
+    margin-bottom: 1.5rem;
+}
+
+.settings-section h3 {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.settings-section .checkbox-item {
+    margin-bottom: 0.5rem;
+}
+
 .btn {
     width: 100%;
     padding: 1rem;

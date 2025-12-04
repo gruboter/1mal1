@@ -10,12 +10,14 @@ class MathTrainingApp {
         this.currentQuestionIndex = 0;
         this.questionCount = 10;
         this.stats = this.loadStats();
+        this.settings = this.loadSettings();
 
         this.init();
     }
 
     init() {
         this.bindEvents();
+        this.loadSettingsUI();
         this.showView('training');
         this.updateStatistics();
     }
@@ -49,6 +51,17 @@ class MathTrainingApp {
                 this.resetStats();
                 this.hideSettings();
             }
+        });
+
+        // Settings: Enable/disable division and sqrt
+        document.getElementById('enable-division').addEventListener('change', (e) => {
+            this.settings.enableDivision = e.target.checked;
+            this.saveSettings();
+        });
+
+        document.getElementById('enable-sqrt').addEventListener('change', (e) => {
+            this.settings.enableSqrt = e.target.checked;
+            this.saveSettings();
         });
 
         // Training mode: Series selection
@@ -183,7 +196,9 @@ class MathTrainingApp {
 
     generateQuestions() {
         this.currentQuestions = [];
-        const types = ['multiplication', 'division', 'sqrt'];
+        const types = ['multiplication'];
+        if (this.settings.enableDivision) types.push('division');
+        if (this.settings.enableSqrt) types.push('sqrt');
 
         // Use spaced repetition for test mode
         if (this.currentMode === 'test') {
@@ -206,8 +221,12 @@ class MathTrainingApp {
         const allPossibleQuestions = [];
 
         // Generate all possible questions for selected series
+        const types = ['multiplication'];
+        if (this.settings.enableDivision) types.push('division');
+        if (this.settings.enableSqrt) types.push('sqrt');
+
         this.selectedSeries.forEach(series => {
-            ['multiplication', 'division', 'sqrt'].forEach(type => {
+            types.forEach(type => {
                 const question = this.generateQuestion(series, type);
                 if (question) {
                     allPossibleQuestions.push(question);
@@ -422,6 +441,23 @@ class MathTrainingApp {
 
     saveStats() {
         localStorage.setItem('mathTrainingStats', JSON.stringify(this.stats));
+    }
+
+    loadSettings() {
+        const stored = localStorage.getItem('mathTrainingSettings');
+        return stored ? JSON.parse(stored) : {
+            enableDivision: true,
+            enableSqrt: true
+        };
+    }
+
+    saveSettings() {
+        localStorage.setItem('mathTrainingSettings', JSON.stringify(this.settings));
+    }
+
+    loadSettingsUI() {
+        document.getElementById('enable-division').checked = this.settings.enableDivision;
+        document.getElementById('enable-sqrt').checked = this.settings.enableSqrt;
     }
 
     getQuestionStats(key) {
