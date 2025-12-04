@@ -1,0 +1,23 @@
+
+Schreibe mir bitte ein "Ein mal Eins Trainings Programm"
+
+für Ganze Zahlen 1 -12
+
+Lernen durch Abfragen:
+- Multiplikation
+- Division
+- Wurzel ziehen (nur ganzzahlige)
+
+Mobile ready Applikation für den Browser
+Die Applikation soll nur im Browser laufen (kein Backend, nur der static content)
+
+Statistiken im Browser local storage speichern (mit reset möglichkeit)
+
+In den Statistiken soll gespeichert werden welche Fragen wie oft richtig bzw falsch beantwortet wurden.
+
+Mit diesen Daten sollen Test/Übungs Runden möglich werden, in denen die schlecht gekonnten Fragen heufiger wiederholt werden
+(ähnlich wie beim Vokabel-Lernen mit Zettelkasten und 4 Fächern)
+
+Antworten auswählbar aus drei bis fünf antworten, damit man das auf einem touch screen/handy leichter spielen kann
+
+Siehe auch die Screenshots in Image-1.jpeg, Image-2.jpeg, Image-3.jpeg

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>1x1 Training</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header>
+            <button id="back-btn" class="icon-btn">✕</button>
+            <h1 id="page-title">Training</h1>
+            <button id="settings-btn" class="icon-btn">⚙</button>
+            <button id="menu-btn" class="icon-btn">⋮</button>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            <!-- Training Mode: Series Selection -->
+            <div id="training-selection" class="view">
+                <p class="welcome-text">Willkommen. Welche Malreihe möchtest du üben?</p>
+                <div class="series-buttons">
+                    <button class="series-btn" data-series="2">2er-Reihe</button>
+                    <button class="series-btn" data-series="3">3er-Reihe</button>
+                    <button class="series-btn" data-series="4">4er-Reihe</button>
+                    <button class="series-btn" data-series="5">5er-Reihe</button>
+                    <button class="series-btn" data-series="6">6er-Reihe</button>
+                    <button class="series-btn" data-series="7">7er-Reihe</button>
+                    <button class="series-btn" data-series="8">8er-Reihe</button>
+                    <button class="series-btn" data-series="9">9er-Reihe</button>
+                    <button class="series-btn" data-series="10">10er-Reihe</button>
+                    <button class="series-btn" data-series="11">11er-Reihe</button>
+                    <button class="series-btn" data-series="12">12er-Reihe</button>
+                </div>
+            </div>
+
+            <!-- Rechentest Mode: Series Selection -->
+            <div id="test-selection" class="view hidden">
+                <p class="welcome-text">Welche Malreihen sollen im Rechentest vorkommen?</p>
+                <div class="series-checkboxes">
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="2" checked>
+                        <span>2er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="3" checked>
+                        <span>3er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="4" checked>
+                        <span>4er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="5" checked>
+                        <span>5er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="6" checked>
+                        <span>6er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="7" checked>
+                        <span>7er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="8" checked>
+                        <span>8er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="9" checked>
+                        <span>9er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="10" checked>
+                        <span>10er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="11" checked>
+                        <span>11er-Reihe</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="12" checked>
+                        <span>12er-Reihe</span>
+                    </label>
+                </div>
+                <div class="test-controls">
+                    <button id="question-count-btn" class="count-btn">10</button>
+                    <button id="start-test-btn" class="play-btn">▶</button>
+                </div>
+            </div>
+
+            <!-- Quiz View -->
+            <div id="quiz-view" class="view hidden">
+                <div class="progress-bar">
+                    <div id="progress" class="progress-fill"></div>
+                </div>
+                <div class="question-container">
+                    <h2 id="question-text" class="question">7 × 8 = ?</h2>
+                    <div id="answers" class="answers">
+                        <!-- Answers will be dynamically generated -->
+                    </div>
+                </div>
+                <div class="quiz-info">
+                    <span id="question-counter">1 / 10</span>
+                </div>
+            </div>
+
+            <!-- Statistics View -->
+            <div id="statistics-view" class="view hidden">
+                <div class="stats-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #dc2626;"></div>
+                        <span>0-49%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f97316;"></div>
+                        <span>50-64%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #eab308;"></div>
+                        <span>65-79%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #84cc16;"></div>
+                        <span>80-89%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #22c55e;"></div>
+                        <span>90-100%</span>
+                    </div>
+                </div>
+                <div id="stats-content" class="stats-content">
+                    <!-- Statistics will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Settings Menu -->
+            <div id="settings-menu" class="modal hidden">
+                <div class="modal-content">
+                    <h2>Einstellungen</h2>
+                    <button id="reset-stats-btn" class="danger-btn">Statistiken zurücksetzen</button>
+                    <button id="close-settings-btn" class="btn">Schließen</button>
+                </div>
+            </div>
+
+            <!-- Question Count Selector -->
+            <div id="count-selector" class="modal hidden">
+                <div class="modal-content">
+                    <h2>Anzahl Fragen</h2>
+                    <div class="count-options">
+                        <button class="count-option" data-count="5">5</button>
+                        <button class="count-option" data-count="10">10</button>
+                        <button class="count-option" data-count="15">15</button>
+                        <button class="count-option" data-count="20">20</button>
+                        <button class="count-option" data-count="30">30</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav id="bottom-nav">
+            <button class="nav-btn active" data-view="training">
+                <span class="nav-icon">💡</span>
+                <span class="nav-label">Training</span>
+            </button>
+            <button class="nav-btn" data-view="test">
+                <span class="nav-icon">🎓</span>
+                <span class="nav-label">Rechentest</span>
+            </button>
+            <button class="nav-btn" data-view="statistics">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Statistiken</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
