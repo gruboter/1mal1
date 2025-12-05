@@ -221,18 +221,49 @@ class MathTrainingApp {
         const allPossibleQuestions = [];
 
         // Generate all possible questions for selected series
-        const types = ['multiplication'];
-        if (this.settings.enableDivision) types.push('division');
-        if (this.settings.enableSqrt) types.push('sqrt');
-
         this.selectedSeries.forEach(series => {
-            types.forEach(type => {
-                const question = this.generateQuestion(series, type);
-                if (question) {
+            // Multiplication: all combinations from 1 to 12
+            for (let i = 1; i <= 12; i++) {
+                const question = {
+                    key: `${series}x${i}`,
+                    text: `${series} × ${i} = ?`,
+                    answer: series * i,
+                    type: 'multiplication'
+                };
+                allPossibleQuestions.push(question);
+            }
+
+            // Division: all combinations from 1 to 12
+            if (this.settings.enableDivision) {
+                for (let i = 1; i <= 12; i++) {
+                    const dividend = series * i;
+                    const question = {
+                        key: `${dividend}/${series}`,
+                        text: `${dividend} ÷ ${series} = ?`,
+                        answer: i,
+                        type: 'division'
+                    };
+                    allPossibleQuestions.push(question);
+                }
+            }
+        });
+
+        // Sqrt: all perfect squares (independent of series)
+        if (this.settings.enableSqrt) {
+            const perfectSquares = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144];
+            perfectSquares.forEach(square => {
+                const root = Math.sqrt(square);
+                if (root >= 1 && root <= 12) {
+                    const question = {
+                        key: `√${square}`,
+                        text: `√${square} = ?`,
+                        answer: root,
+                        type: 'sqrt'
+                    };
                     allPossibleQuestions.push(question);
                 }
             });
-        });
+        }
 
         // Sort by performance (worst first) using Leitner system
         const weightedQuestions = allPossibleQuestions.map(q => {
